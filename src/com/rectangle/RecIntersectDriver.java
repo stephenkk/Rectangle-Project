@@ -103,6 +103,7 @@ public class RecIntersectDriver {
 		// -5,2,1,5 under
 		// 9,2,10,6 out to the right
 		// 5,8,9,9 above
+		scanner.close();
 	}
 
 	
