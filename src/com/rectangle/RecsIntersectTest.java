@@ -13,8 +13,7 @@ class RecsIntersectTest {
 		Diagonal upwardDiagOfRecA = new Diagonal(3,2,8,6); 
 		Diagonal upwardDiagOfRecB = new Diagonal(4,3,7,5);
 		assertTrue(recsProj.isContained(upwardDiagOfRecA, upwardDiagOfRecB));
-		
-		
+			
 	}
 	
 	@Test
@@ -24,12 +23,27 @@ class RecsIntersectTest {
 		assertFalse(recsProj.isContained(upwardDiagOfRecA, upwardDiagOfRecB));
 	}
 	
+	@Test
+	void testDoIntersectFalse() {
+		Diagonal upwardDiagOfRecA = new Diagonal(3,2,8,6); 
+		Diagonal upwardDiagOfRecB = new Diagonal(9,2,10,6);
+		assertFalse(recsProj.doIntersect(upwardDiagOfRecA, upwardDiagOfRecB));
+	}
+		
+		@Test
+	void testDoIntersectTrue() {
+			Diagonal upwardDiagOfRecA = new Diagonal(3,2,8,6); 
+			Diagonal upwardDiagOfRecB = new Diagonal(1,1,5,7);
+			assertTrue(recsProj.doIntersect(upwardDiagOfRecA, upwardDiagOfRecB));
+		
+	}
 	
-//	@Test
-//	void testIsACorner() {
-//		Diagonal upwardDiagOfRecA = new Diagonal(3,2,8,6);
-//		Diagonal downwardDiagOfRecB = new Diagonal(5,3,9,8);
-//		assertTrue(recsProj.isACorner(upwardDiagOfRecA, downwardDiagOfRecB, 5, 3));
-//	}
+	
+	@Test
+	void testIsACorner() {
+		Diagonal upwardDiagOfRecA = new Diagonal(3,2,8,6);
+		Diagonal downwardDiagOfRecB = new Diagonal(5,3,9,8);
+		assertTrue(recsProj.isACorner(upwardDiagOfRecA, downwardDiagOfRecB, 5, 3));
+	}
 
 }
