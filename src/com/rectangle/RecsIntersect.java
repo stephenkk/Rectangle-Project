@@ -1,6 +1,8 @@
 package com.rectangle;
 
 public class RecsIntersect {
+	//isContained method compares coords of the two entered diags to determine
+	//if the one of the two rectangles is contained within the other
 	boolean isContained(Diagonal upwardDiagOfRecA, Diagonal upwardDiagOfRecB) {
 		if (upwardDiagOfRecA.x1 < upwardDiagOfRecB.x1 && upwardDiagOfRecA.x2 > upwardDiagOfRecB.x2
 				&& upwardDiagOfRecA.y1 < upwardDiagOfRecB.y1 && upwardDiagOfRecA.y2 > upwardDiagOfRecB.y2) {
@@ -13,7 +15,8 @@ public class RecsIntersect {
 		} else
 			return false;
 	}
-
+	//doIntersect evaluates the coords of the two entered diags to determine
+	//if the rectangles intersect at all
 	boolean doIntersect(Diagonal upwardDiagOfRecA, Diagonal upwardDiagOfRecB) {
 		if (upwardDiagOfRecA.x1 > upwardDiagOfRecB.x2 || upwardDiagOfRecA.x2 < upwardDiagOfRecB.x1
 				|| upwardDiagOfRecA.y1 > upwardDiagOfRecB.y2 || upwardDiagOfRecA.y2 < upwardDiagOfRecB.y1)
@@ -21,7 +24,8 @@ public class RecsIntersect {
 		else
 			return true;
 	}
-
+	//If two rectangles intersect they will create a new smaller rectangle
+	//findUpwardNewDiagonal discovers the upward sloping diag of the new rectangle
 	Diagonal findUpwardNewDiagonal(Diagonal UpwardDiagOfRecA, Diagonal UpwardDiagOfRecB) {
 
 		int x5 = Math.max(UpwardDiagOfRecA.x1, UpwardDiagOfRecB.x1);
@@ -36,10 +40,9 @@ public class RecsIntersect {
 		return upwardNewRecDiag;
 
 	}
-	// diag1 and diag2 are the diagonals of rectangle A. A corner of rectangle A can
-	// not be a point of intersection with rectangle B
-
+	//Finds adjacencies or intersection points if they exist and prints to console
 	void findIntersectPoints(Diagonal upwardDiagOfRecA, Diagonal upwardDiagOfRecB) {
+		//first check for containment and non-intersection
 		if (isContained(upwardDiagOfRecA, upwardDiagOfRecB))
 			return;
 		if (!doIntersect(upwardDiagOfRecA, upwardDiagOfRecB)) {
@@ -49,30 +52,31 @@ public class RecsIntersect {
 			
 			return;
 		}
-
+		//get new upwardsloping diagonal of rectangle created by intersection
 		Diagonal upwardNewRecDiag = findUpwardNewDiagonal(upwardDiagOfRecA, upwardDiagOfRecB);
+		//get downward sloping diag of rectangle A
 		Diagonal downwardDiagOfRecA = new Diagonal(upwardDiagOfRecA.x1, upwardDiagOfRecA.y2, upwardDiagOfRecA.x2,
 				upwardDiagOfRecA.y1);
-
+		//get new downward sloping diagonal of rectangle created by intersection
 		Diagonal downwardNewRecDiag = new Diagonal(upwardNewRecDiag.x1, upwardNewRecDiag.y2, upwardNewRecDiag.x2,
 				upwardNewRecDiag.y1);
+		//print the coords of the newly formed rectangle's diags to console
 		System.out.println("Second new diag is: (" + downwardNewRecDiag.x1 + "," +
 		 downwardNewRecDiag.y1 + ")" + " " +"(" + downwardNewRecDiag.x2 + "," +
 		 downwardNewRecDiag.y2 + ")");
-		// Point intersecPoint = new Point();
-		// ArrayList<Point> intersecPoints = new ArrayList<Point>();
-		// Diagonal [] diagArray = {newRecDiag1, downwardNewDiag};
+		
+		//Check for adjacency on four sides of rectangle A
 		
 		//Where rectangle B is on right side of rectangle A
 		if (upwardDiagOfRecA.x2 == upwardDiagOfRecB.x1) {
 			if (upwardDiagOfRecA.y2 == upwardDiagOfRecB.y2) {
-				System.out.println("The rectangle A proper adjacent to rectangle B");
+				System.out.println("Rectangle A is proper adjacent to rectangle B");
 				return;
 			} else if (upwardDiagOfRecA.y2 > upwardDiagOfRecB.y2) {
-				System.out.println("The rectangle A adjacent(sub-line) to rectangle B");
+				System.out.println("Rectangle A is adjacent(sub-line) to rectangle B");
 				return;
 			} else if (upwardDiagOfRecA.y2 < upwardDiagOfRecB.y2) {
-				System.out.println("The rectangle A adjacent(partial) to rectangle B");
+				System.out.println("Rectangle A is adjacent(partial) to rectangle B");
 				return;
 			}
 		}
@@ -80,13 +84,13 @@ public class RecsIntersect {
 		//Where rectangle B is on top of rectangle A
 		if (upwardDiagOfRecA.y2 == upwardDiagOfRecB.y1) {
 			if (downwardDiagOfRecA.x1 == upwardDiagOfRecB.x1) {
-				System.out.println("The rectangle A proper adjacent to rectangle B");
+				System.out.println("Rectangle A is proper adjacent to rectangle B");
 				return;
 			} else if (downwardDiagOfRecA.x1 < upwardDiagOfRecB.x1) {
-				System.out.println("The rectangle A adjacent(sub-line) to rectangle B");
+				System.out.println("Rectangle is A adjacent(sub-line) to rectangle B");
 				return;
 			} else if (downwardDiagOfRecA.x1 > upwardDiagOfRecB.x1) {
-				System.out.println("The rectangle A adjacent(partial) to rectangle B");
+				System.out.println("Rectangle A is adjacent(partial) to rectangle B");
 				return;
 			}
 		}
@@ -94,13 +98,13 @@ public class RecsIntersect {
 		// Where rectangle B is on left side of rectangle A
 		if (upwardDiagOfRecA.x1 == upwardDiagOfRecB.x2) {
 			if (upwardDiagOfRecA.y1 == upwardDiagOfRecB.y1) {
-				System.out.println("The rectangle B proper adjacent to rectangle A");
+				System.out.println("Rectangle B is proper adjacent to rectangle A");
 				return;
 			} else if (upwardDiagOfRecA.y1 < upwardDiagOfRecB.y1) {
-				System.out.println("The rectangle B adjacent(sub-line) to rectangle A");
+				System.out.println("Rectangle B is adjacent(sub-line) to rectangle A");
 				return;
 			} else if (upwardDiagOfRecA.y1 > upwardDiagOfRecB.y1) {
-				System.out.println("The rectangle B adjacent(partial) to rectangle A");
+				System.out.println("Rectangle B is adjacent(partial) to rectangle A");
 				return;
 			}
 		}
@@ -108,7 +112,7 @@ public class RecsIntersect {
 		// Where rectangle B is on bottom of rectangle A
 		if (upwardDiagOfRecA.y1 == upwardDiagOfRecB.y2) {
 			if (downwardDiagOfRecA.x2 == upwardDiagOfRecB.x2) {
-				System.out.println("The rectangle B proper adjacent to rectangle A");
+				System.out.println("The rectangle B is  proper adjacent to rectangle A");
 				return;
 			} else if (downwardDiagOfRecA.x2 > upwardDiagOfRecB.x2) {
 				System.out.println("The rectangle B adjacent(sub-line) to rectangle A");
@@ -118,7 +122,13 @@ public class RecsIntersect {
 				return;
 			}
 		}
-
+		//If there is intersection that is not an adjacency, then there must be
+		//either two or four points of intersection which are end points of the new 
+		//diagonals. A separate for loop inspects each end point.
+		//There are four "edge" cases in which a corner of rectangle A could be
+		//incorrectly identified as a point of intersection. !isACorner eliminates
+		// those possibilities and then the points of intersection are discovered by 
+		//remainder of the for loop.
 		if (!isACorner(upwardDiagOfRecA, downwardDiagOfRecA, upwardNewRecDiag.x1, upwardNewRecDiag.y1)
 				& (upwardNewRecDiag.x1 == upwardDiagOfRecA.x1 || upwardNewRecDiag.x1 == upwardDiagOfRecA.x2
 						|| upwardNewRecDiag.y1 == upwardDiagOfRecA.y1 || upwardNewRecDiag.y1 == upwardDiagOfRecA.y2))
